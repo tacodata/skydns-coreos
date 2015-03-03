@@ -9,8 +9,9 @@ if [ -z "$ETCD_HOSTS" ]; then
     >&2 echo "set ETCD_MACHINES to ${docker_host}"
     my_host=$(ifconfig eth0 | grep 'inet ' | awk '{print $2'} | sed 's/addr://')
     >&2 echo "set SKYDNS_ADDR to ${my_host}"
+    >&2 ifconfig
     export ETCD_MACHINES="http://${docker_host}:4001"
-    export SKYDNS_ADDR="http://${my_host}:53"
+    export SKYDNS_ADDR="${my_host}:53"
 fi
 
 skydns $@
